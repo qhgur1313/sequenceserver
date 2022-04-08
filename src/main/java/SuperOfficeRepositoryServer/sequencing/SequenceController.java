@@ -45,7 +45,9 @@ public class SequenceController {
     String tmpMessage = gson.toJson(ticketedMessage);
     EventServerDTO parsedMessage = new EventServerDTO("websocket_push", ticketedMessage.getSessionId(), tmpMessage, ticketedMessage.getDocumentId().toString());
     String message = mapper.writeValueAsString(parsedMessage);
-    String url = "http://192.168.152.45:8080/apis/v1/events/messages";
+    // 사내망 event server url
+    // String url = "http://192.168.152.45:8080/apis/v1/events/messages";
+    String url = "http://eventserver.220.90.208.7.nip.io/apis/v1/events/messages";
 
     webClient.post().uri(url).accept(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(message)).retrieve().bodyToMono(String.class).block();
   }
