@@ -1,6 +1,6 @@
 package SuperOfficeRepositoryServer.sequencing;
 
-import SuperOfficeRepositoryServer.sequencing.BasicDTO.DTO;
+import SuperOfficeRepositoryServer.sequencing.BasicDTO.OperationDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,20 +12,20 @@ public class DocumentPartition {
   public DocumentPartition() {
   }
 
-  public DTO ticket(DTO dto) {
-    if(clientSequenceMap.get(dto.getSessionId()) == null) {
-      clientSequenceMap.put(dto.getSessionId(), dto.getClientSequenceNumber());
+  public OperationDTO ticket(OperationDTO operationDto) {
+    if(clientSequenceMap.get(operationDto.getSessionId()) == null) {
+      clientSequenceMap.put(operationDto.getSessionId(), operationDto.getClientSeqNum());
     } else {
-      Integer expectedClientSequenceNumber = clientSequenceMap.get(dto.getSessionId()) + 1;
-      if(expectedClientSequenceNumber != dto.getClientSequenceNumber()) {
+      Integer expectedClientSequenceNumber = clientSequenceMap.get(operationDto.getSessionId()) + 1;
+      if(!expectedClientSequenceNumber.equals(operationDto.getClientSeqNum())) {
         System.out.println("Client Command leak occured");
       }
-      clientSequenceMap.put(dto.getSessionId(), dto.getClientSequenceNumber());
+      clientSequenceMap.put(operationDto.getSessionId(), operationDto.getClientSeqNum());
     }
 
-    dto.setSequenceNumber(sequenceNumber);
+    operationDto.setSeqNum(sequenceNumber);
     sequenceNumber += 1;
 
-    return dto;
+    return operationDto;
   }
 }
