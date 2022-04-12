@@ -1,6 +1,6 @@
 package SuperOfficeRepositoryServer.sequencing;
 
-import SuperOfficeRepositoryServer.sequencing.BasicDTO.OperationDTO;
+import SuperOfficeRepositoryServer.sequencing.BasicDTO.SequenceMessageDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ public class DocumentPartition {
   public DocumentPartition() {
   }
 
-  public OperationDTO ticket(OperationDTO operationDto) {
+  public SequenceMessageDTO ticket(SequenceMessageDTO operationDto) {
     if(clientSequenceMap.get(operationDto.getSessionId()) == null) {
       clientSequenceMap.put(operationDto.getSessionId(), operationDto.getClientSeqNum());
     } else {

@@ -48,6 +48,18 @@ public class BasicDTO {
   @Getter
   @Setter
   @AllArgsConstructor
+  public static class SequenceMessageDTO {
+    private String sessionId;
+    private Integer userId;
+    private Integer clientSeqNum;
+    private Integer seqNum;
+    private Integer refSeqNum;
+    private List<OperationDTO> operationMessages;
+  }
+
+  @Getter
+  @Setter
+  @AllArgsConstructor
   @NoArgsConstructor
   @JsonInclude(JsonInclude.Include.NON_NULL)
   @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "elementType", visible = true, defaultImpl = OperationDTO.class)
@@ -55,10 +67,6 @@ public class BasicDTO {
       @JsonSubTypes.Type(value = ParagraphOperationDTO.class, name = "OFFICE_PARAGRAPH")
   })
   public static class OperationDTO {
-    private String sessionId;
-    private Integer clientSeqNum;
-    private Integer seqNum;
-    private Integer refSeqNum;
     private Integer elementId;
     private Integer parentId;
     private Integer prevId;
@@ -105,14 +113,13 @@ public class BasicDTO {
     private Double superScript;
     private Double subScript;
 
-    public ParagraphOperationDTO(String sessionId, Integer clientSeqNum, Integer seqNum, Integer refSeqNum, Integer elementId,
-                                 Integer parentId, Integer prevId, Integer nextId, Integer childId, String elementType, String objectType, String contentType,
+    public ParagraphOperationDTO(Integer elementId, Integer parentId, Integer prevId, Integer nextId, Integer childId, String elementType, String objectType, String contentType,
                                  String behavior, String plainText, String longPlainText, Long commonParaStyleId, Long directParaStyleId, Long directCharStyleId,
                                  String alignment, Double leftIndent, Double leftIndentChar, Double rightIndent, Double rightIndentChar, Double hangingIndent,
                                  Double hangingIndentChar, Double firstLineIndent, Double firstLineIndentChar, Double spacingLine, String paraShade, Long numId,
                                  Integer numLevel, String font, Double fontSize, String highLightColor, String charShade, String bold, String italic, String underlineColor,
                                  String underlineType, String strike, String fontColor, Double superScript, Double subScript) {
-      super(sessionId, clientSeqNum, seqNum, refSeqNum, elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
+      super(elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
       this.plainText = plainText;
       this.longPlainText = longPlainText;
       this.commonParaStyleId = commonParaStyleId;
@@ -160,10 +167,10 @@ public class BasicDTO {
     private String dt;
 
 
-    public MasterSlideOperationDTO(String sessionId, Integer clientSeqNum, Integer seqNum, Integer refSeqNum, Integer elementId, Integer parentId,
-                                            Integer prevId, Integer nextId, Integer childId, String elementType, String objectType, String contentType, String behavior,
-                                            Long firstLayoutSlideId, String themeId, String preserve, String headerFooter, String sldNum, String hdr, String ftr, String dt) {
-      super(sessionId, clientSeqNum, seqNum, refSeqNum, elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
+    public MasterSlideOperationDTO(Integer elementId, Integer parentId, Integer prevId, Integer nextId, Integer childId, String elementType, String objectType,
+                                   String contentType, String behavior, Long firstLayoutSlideId, String themeId, String preserve, String headerFooter,
+                                   String sldNum, String hdr, String ftr, String dt) {
+      super(elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
       this.firstLayoutSlideId = firstLayoutSlideId;
       this.themeId = themeId;
       this.preserve = preserve;
@@ -193,11 +200,11 @@ public class BasicDTO {
     private String ftr;
     private String dt;
 
-    public LayoutSlideOperationDTO(String sessionId, Integer clientSeqNum, Integer seqNum, Integer refSeqNum, Integer elementId, Integer parentId,
+    public LayoutSlideOperationDTO(Integer elementId, Integer parentId,
                                    Integer prevId, Integer nextId, Integer childId, String elementType, String objectType, String contentType, String behavior,
                                    Long masterSlideId, String showMasterSp, String showMasterPhAnim, String show, String matchingName, String type, String preserve,
                                    String userDrawn, String headerFooter, String sldNum, String hdr, String ftr, String dt) {
-      super(sessionId, clientSeqNum, seqNum, refSeqNum, elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
+      super(elementId, parentId, prevId, nextId, childId, elementType, objectType, contentType, behavior);
       this.masterSlideId = masterSlideId;
       this.showMasterSp = showMasterSp;
       this.showMasterPhAnim = showMasterPhAnim;
