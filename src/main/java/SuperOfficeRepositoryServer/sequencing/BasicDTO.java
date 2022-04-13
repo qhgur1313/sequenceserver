@@ -54,7 +54,7 @@ public class BasicDTO {
     private Integer clientSeqNum;
     private Integer seqNum;
     private Integer refSeqNum;
-    private List<OperationMessage> operationMessages;
+    private String operationMessages;
   }
 
   @Getter
